@@ -14,6 +14,16 @@ class PopupDialogComponent extends React.Component {
         }
     }
 
+    showDialogComponentForUpdate = (existingTodoList) => {
+        this.refs.popupDialog.show()
+        this.setState({
+            dialogTitle: "Update todo list",
+            id: existingTodoList.id,
+            name: existingTodoList.name,
+            isAddNew: false
+        })
+    }
+
     showDialogComponentForAdd = () => {
         this.refs.popupDialog.show()
         this.setState({
@@ -56,6 +66,14 @@ class PopupDialogComponent extends React.Component {
                                     insertNewTodoList(newTodoList).then().catch((error) => {
                                         alert(`insert new todo list error ${error}`)
                                     })
+                                }else {
+                                    const todoList = {
+                                        id: this.state.id,
+                                        name: this.state.name
+                                    }
+                                    updateTodoList(todoList).then().catch(error => {
+                                        alert(`update failed ${error}`)
+                                    })   
                                 }
                             })
                         }}>

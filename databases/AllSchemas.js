@@ -46,7 +46,7 @@ export const updateTodoList = todoList => new Promise((resolve, reject) => {
     Realm.open(databaseOptions).then(realm => {
         realm.write(() => {
             let updatingTodoList = realm.objectForPrimaryKey(TODOLIST_SCHEMA, todoList.id);
-            updateTodoList.name = todoList.name;
+            updatingTodoList.name = todoList.name;
             resolve();
         });
     }).catch(error => reject(error))

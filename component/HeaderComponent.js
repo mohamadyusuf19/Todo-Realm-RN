@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-end',
         alignItems: 'center',
-        backgroundColor: 'rgb(224, 93, 144)',
+        backgroundColor: '#031f4c',
         height: Platform.OS === 'ios' ? 100 : 80
     },
     addButton: {

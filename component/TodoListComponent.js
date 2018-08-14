@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, FlatList, TouchableOpacity, Alert, StyleSheet } from 'react-native';
 import { updateTodoList, deleteTodoList, queryAllTodoList } from '../databases/AllSchemas';
+import realm from '../databases/AllSchemas'
 import Swipeout from 'react-native-swipeout';
 
 import HeaderComponent from '../component/HeaderComponent'
@@ -8,7 +9,7 @@ import PopupDialogComponent from '../component/PopupDialogComponent'
 let FlatListItem = props => {
     const { itemIndex, id, name, creationDate, popupDialogComponent, onPressItem } = props
     showEditModal = () => {
-
+        popupDialogComponent.showDialogComponentForUpdate({id, name})
     }
     showDeleteConfirmation = () => {
         Alert.alert(
@@ -61,6 +62,9 @@ class TodoListComponent extends React.Component {
             todoLists: []
         }
         this.reloadData();
+        realm.addListener('change', () => {
+            this.reloadData()
+        })
     }
 
     reloadData() {
