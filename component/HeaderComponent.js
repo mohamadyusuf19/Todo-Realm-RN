@@ -1,10 +1,33 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Platform, Image, Alert } from "react-native";
+import { deleteAllTodoList } from '../databases/AllSchemas'
 
 const HeaderComponent = props => {
     let {showAddTodoList, title, hasAddButton, hasShortButton, short, sortState, hasDeleteAllButton } = props
     return (
         <View style={styles.container}>
+            {hasDeleteAllButton && <TouchableOpacity style={styles.deleteButton} onPress={
+                () => {
+                    Alert.alert(
+                        'Delete All',
+                        'Are you sure you want to delete all list?',
+                        [
+                            {
+                                text: 'No',
+                                style: 'cancel'
+                            },
+                            {
+                                text: 'Yes',
+                                onPress: () => {deleteAllTodoList().then().catch(error => {
+                                    alert(`error to delete all ${error}`)
+                                })}
+                            }
+                        ]
+                    )
+                }
+            }>
+                <Image source={require('../image/delete.png')} style={styles.deleteButtonImage}/>
+            </TouchableOpacity>}
             {hasAddButton && <TouchableOpacity style={styles.addButton} onPress={showAddTodoList}> 
                 <Image style={styles.addButtonImage} source={require('../image/plus.png')}/>
             </TouchableOpacity>}
@@ -21,14 +44,20 @@ const styles = StyleSheet.create({
         height: Platform.OS === 'ios' ? 100 : 80
     },
     addButton: {
-
-    },
-    addButtonImage: {
         zIndex: 2,
         marginRight: 10,
-        marginTop: 30
+        marginTop: 10,
     },
     addButtonImage: {
+        width: 42,
+        height: 42,
+    },
+    deleteButton: {
+        zIndex: 2,
+        marginRight: 10,
+        marginTop:10
+    },
+    deleteButtonImage: {
         width: 42,
         height: 42,
     },

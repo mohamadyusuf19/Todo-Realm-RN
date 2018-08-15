@@ -66,7 +66,7 @@ export const deleteAllTodoList = () => new Promise((resolve, reject) => {
     Realm.open(databaseOptions).then(realm => {
         realm.write(() => {
             let allTodoList = realm.objects(TODOLIST_SCHEMA);
-            realm.deleteAll(allTodoList)
+            realm.delete(allTodoList)
             resolve(allTodoList)
         })
     }).catch(error => reject(error))

@@ -26,7 +26,9 @@ let FlatListItem = props => {
                 {
                     text: 'Yes', 
                     onPress: () => {
-
+                        deleteTodoList(id).then().catch(error => {
+                            aler(`delete failed ${error}`)
+                        })
                     }
                 }
             ]
@@ -83,6 +85,7 @@ class TodoListComponent extends React.Component {
             <HeaderComponent 
                 title={"Todo List"}
                 hasAddButton={true}
+                hasDeleteAllButton={true}
                 showAddTodoList={() => {this.refs.popupDialogComponent.showDialogComponentForAdd()}}
             />
             <FlatList 
